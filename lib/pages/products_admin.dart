@@ -1,38 +1,54 @@
 import 'package:flutter/material.dart';
 import './products.dart';
+import './product_create.dart';
+import './product_list.dart';
 
 class ProductAdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: Column(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              AppBar(
+                automaticallyImplyLeading: false,
+                title: Text('Choose'),
+              ),
+              ListTile(
+                  title: Text("Show Products"),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext build) => ProductsPage(),
+                        ));
+                  }),
+            ],
+          ),
+        ),
+        appBar: AppBar(
+          title: Text('Product Admin'),
+          bottom: TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.create),
+                text: 'Create Product'
+              ),
+              Tab(
+                icon: Icon(Icons.list),
+                text: 'My Products'
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: <Widget>[
-            AppBar(
-              automaticallyImplyLeading: false,
-              title: Text('Return Back'),
-            ),
-            ListTile(
-              title: Text("Show Products"),
-              onTap: () {
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(
-                  builder: (BuildContext build) => ProductsPage(),
-                ));
-              }
-            ),
+            ProductCreatePage(),
+            ProductListPage()
           ],
         ),
-      ),
-      appBar: AppBar(title: Text('Product Admin')),
-      body: Column(
-        children: <Widget>[
-          Image.asset('assets/food.jpg'),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Text('This is the admin page'),
-          )
-        ],
       ),
     );
   }
