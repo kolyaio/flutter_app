@@ -5,7 +5,7 @@ import './products.dart';
 
 class ProductManager extends StatelessWidget {
 
-  final List<Map<String, String>> products;
+  final List<Map<String, dynamic>> products;
 
 
   ProductManager(this.products);
