@@ -43,6 +43,9 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               });
             },
           ),
+          RaisedButton(child: Text('Save'), onPressed: () {
+            
+          },)
         ],
       )
     );
