@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatelessWidget {
+
+  AuthPage(this._authUsername, this._authPassword);
+  final String _authUsername;
+  final String _authPassword;
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -10,7 +15,7 @@ class AuthPage extends StatelessWidget {
         child: RaisedButton(
           child: Text('LOGIN'),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/');
+            Navigator.pushReplacementNamed(context, '/products');
           },
         ),
       ),

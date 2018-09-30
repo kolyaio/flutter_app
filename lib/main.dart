@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
-// import './pages/auth.dart';
 import './pages/products_admin.dart';
+import './pages/auth.dart';
 import './pages/products.dart';
 import './pages/product.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -17,6 +17,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
    List<Map<String, dynamic>>_products = [];
+   String _authUsername = "root";
+   String _authPassword = "root";
 
    void _addProduct(Map<String, dynamic> product) {
     setState(() {
@@ -38,9 +40,9 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.deepOrange,
         accentColor: Colors.deepPurple
       ),
-      // home: AuthPage(),
       routes: {
-        '/': (BuildContext build) => ProductsPage(_products),
+        '/': (BuildContext build) => AuthPage(_authUsername, _authPassword),
+        '/products': (BuildContext build) => ProductsPage(_products),
         '/admin': (BuildContext build) => ProductAdminPage(_addProduct, _deleteProduct)
       },
       onGenerateRoute: (RouteSettings settings) {
