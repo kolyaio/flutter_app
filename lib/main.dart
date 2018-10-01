@@ -17,8 +17,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
    List<Map<String, dynamic>>_products = [];
-   String _authUsername = "root";
-   String _authPassword = "root";
 
    void _addProduct(Map<String, dynamic> product) {
     setState(() {
@@ -41,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         accentColor: Colors.deepPurple
       ),
       routes: {
-        '/': (BuildContext build) => AuthPage(_authUsername, _authPassword),
+        '/': (BuildContext build) => AuthPage(),
         '/products': (BuildContext build) => ProductsPage(_products),
         '/admin': (BuildContext build) => ProductAdminPage(_addProduct, _deleteProduct)
       },

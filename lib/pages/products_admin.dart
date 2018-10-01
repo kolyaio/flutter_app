@@ -26,6 +26,12 @@ class ProductAdminPage extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(context, '/products');
                   }),
+              ListTile(
+                title: Text('Login'),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/');
+                },
+              ),
             ],
           ),
         ),
@@ -33,22 +39,13 @@ class ProductAdminPage extends StatelessWidget {
           title: Text('Product Admin'),
           bottom: TabBar(
             tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.create),
-                text: 'Create Product'
-              ),
-              Tab(
-                icon: Icon(Icons.list),
-                text: 'My Products'
-              ),
+              Tab(icon: Icon(Icons.create), text: 'Create Product'),
+              Tab(icon: Icon(Icons.list), text: 'My Products'),
             ],
           ),
         ),
         body: TabBarView(
-          children: <Widget>[
-            ProductCreatePage(addProduct),
-            ProductListPage()
-          ],
+          children: <Widget>[ProductCreatePage(addProduct), ProductListPage()],
         ),
       ),
     );

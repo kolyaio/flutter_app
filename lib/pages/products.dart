@@ -22,6 +22,12 @@ class ProductsPage extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, '/admin');
               },
             ),
+            ListTile(
+              title: Text('Login'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/');
+              },
+            ),
           ],
         ),
       ),
