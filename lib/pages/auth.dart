@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
+  @override
+    State<StatefulWidget> createState() {
+      return _AuthPageState();
+    }
+}
+
+class _AuthPageState extends State<AuthPage> {
+  String _usernameValue;
+  String _passwordValue;
+
+
   _showWarningDialog(BuildContext context, message) {
     return showDialog(
         context: context,
@@ -12,7 +23,12 @@ class AuthPage extends StatelessWidget {
               FlatButton(
                 child: Text('OK'),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/products');
+                  if (_checkLogin(context)) {
+                    Navigator.pushReplacementNamed(context, '/products');
+                  }
+                  else {
+                    Navigator.pop(context);
+                  }
                 },
               ),
             ],
@@ -20,10 +36,16 @@ class AuthPage extends StatelessWidget {
         });
   }
 
-  Widget build(BuildContext context) {
-    String _username = "";
-    String _password = "";
+  bool _checkLogin(BuildContext context) {
+     bool usernameIsNotNullOrEmpty = (this._usernameValue != null) && (this._usernameValue != "");
+     bool passwordIsNotNullOrEmpty = (this._passwordValue != null) && (this._passwordValue != "");
+     if (usernameIsNotNullOrEmpty && passwordIsNotNullOrEmpty) {
+       return true;
+     }
+     return false;
+  }
 
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Login'),
@@ -35,15 +57,20 @@ class AuthPage extends StatelessWidget {
                   children: <Widget>[
                     TextField(
                       decoration: InputDecoration(labelText: 'Username'),
-                      onChanged: (username) {
-                        _username = username;
+                      onChanged: (String value) {
+                        setState(() {
+                            _usernameValue = value;
+                        });
                       },
                     ),
+                    SizedBox(height: 10.0),
                     TextField(
                       obscureText: true,
                       decoration: InputDecoration(labelText: 'Password'),
-                      onChanged: (password) {
-                        _password = password;
+                      onChanged: (String value) {
+                        setState(() {
+                            _passwordValue = value;
+                        });
                       },
                     ),
                     SizedBox(height: 10.0),
@@ -52,8 +79,13 @@ class AuthPage extends StatelessWidget {
                       color: Theme.of(context).accentColor,
                       textColor: Colors.white,
                       onPressed: () {
-                        this._showWarningDialog(context,
-                            "Yo! $_username, your password is $_password");
+                        if (_checkLogin(context)) {
+                           _showWarningDialog(context,
+                         "Yo! $_usernameValue, your password is $_passwordValue");
+                        } else {
+                          _showWarningDialog(context,
+                         "You must enter your username and password");
+                        }
                       },
                     )
                   ],
