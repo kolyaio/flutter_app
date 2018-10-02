@@ -52,10 +52,10 @@ class _AuthPageState extends State<AuthPage> {
         ),
         body: Builder(
           builder: (context) => Container(
-                margin: EdgeInsets.all(10.0),
-                child: ListView(
-                  children: <Widget>[
-                    TextField(
+                  margin: EdgeInsets.all(10.0),
+                  child: ListView(
+                    children: <Widget>[
+                      TextField(
                       decoration: InputDecoration(labelText: 'Username'),
                       onChanged: (String value) {
                         setState(() {
