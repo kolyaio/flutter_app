@@ -7,10 +7,13 @@ class Products extends StatelessWidget {
 
   Widget _buildProductItem(BuildContext context, int index) {
     return Card(
-        child: Column(
+      child: Column(
       children: <Widget>[
         Image.asset(products[index]['image']),
-        Text(products[index]['title']),
+        Container(
+          padding: EdgeInsets.only(top: 10.0),
+          child:  Text(products[index]['title'], style: TextStyle(fontSize:26.0, fontWeight: FontWeight.bold, fontFamily: 'Oswald'),),
+        ),
         ButtonBar(
           alignment: MainAxisAlignment.center,
           children: <Widget>[
