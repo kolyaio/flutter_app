@@ -5,8 +5,10 @@ import 'dart:async';
 class ProductPage extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final String description;
+  final double price;
 
-  ProductPage(this.title, this.imageUrl);
+  ProductPage(this.title, this.imageUrl, this.description, this.price);
 
   _showWarningDialog(BuildContext context) {
     return showDialog(
@@ -45,22 +47,70 @@ class ProductPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(title),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.favorite_border),
+                onPressed: () {},
+                color: Colors.white)
+          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(imageUrl),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(title),
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                color: Theme.of(context).accentColor,
-                child: Text('DELETE'),
-                onPressed: () => _showWarningDialog(context),
-              ),
+            Card(
+              child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(
+                              fontSize: 26.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Oswald'),
+                        ),
+                        SizedBox(width: 8.0),
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 6.0, vertical: 2.5),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).accentColor,
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: Text('\$$price',
+                                style: TextStyle(color: Colors.white))),
+                      ],
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1.0),
+                          borderRadius: BorderRadius.circular(4.0)),
+                      child: Text("Union Square, San Francisco"),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(14.0),
+                      child: Text(description,
+                          style: TextStyle(color: Colors.black, fontSize: 15)),
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Colors.red[800],
+                          onPressed: () => _showWarningDialog(context),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.favorite_border),
+                            onPressed: () {},
+                            color: Colors.red)
+                      ],
+                    )
+                  ])),
             ),
           ],
         ),
