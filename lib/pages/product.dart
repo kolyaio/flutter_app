@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../widgets/ui_elements/title_default.dart';
 import 'dart:async';
 
 class ProductPage extends StatelessWidget {
@@ -25,10 +25,7 @@ class ProductPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset(imageUrl),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(title, style: TextStyle(fontSize: 26.0, fontFamily: 'Oswald', fontWeight: FontWeight.bold)),
-            ),
+            TitleDefault(title),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
