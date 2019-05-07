@@ -46,6 +46,60 @@ class _AuthPageState extends State<AuthPage> {
     return false;
   }
 
+  DecorationImage _buildBackgroundImage() {
+    return DecorationImage(
+        image: AssetImage('assets/background.jpg'),
+        fit: BoxFit.cover,
+        colorFilter:
+            ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop));
+  }
+
+  Widget _buildUsernameTextField() {
+    return TextField(
+      decoration: InputDecoration(
+          labelText: 'Username', filled: true, fillColor: Colors.white),
+      onChanged: (String value) {
+        setState(() {
+          _usernameValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildPasswordTextField() {
+    return TextField(
+      obscureText: true,
+      decoration: InputDecoration(
+          labelText: 'Password', filled: true, fillColor: Colors.white),
+      onChanged: (String value) {
+        setState(() {
+          _passwordValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildSwitchTite() {
+    return SwitchListTile(
+      value: _acceptTerms,
+      onChanged: (bool value) {
+        setState(() {
+          _acceptTerms = value;
+        });
+      },
+      title: Text('Accept Terms'),
+    );
+  }
+
+  void _submitForm() {
+    if (_checkLogin(context)) {
+      _showWarningDialog(
+          context, "Yo! $_usernameValue, your password is $_passwordValue");
+    } else {
+      _showWarningDialog(context, "You must enter your username and password");
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -53,64 +107,23 @@ class _AuthPageState extends State<AuthPage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/background.jpg'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.5), BlendMode.dstATop)),
+          image: _buildBackgroundImage(),
         ),
         padding: EdgeInsets.all(10.0),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Username',
-                      filled: true,
-                      fillColor: Colors.white),
-                  onChanged: (String value) {
-                    setState(() {
-                      _usernameValue = value;
-                    });
-                  },
-                ),
+                _buildUsernameTextField(),
                 SizedBox(height: 10.0),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      fillColor: Colors.white),
-                  onChanged: (String value) {
-                    setState(() {
-                      _passwordValue = value;
-                    });
-                  },
-                ),
-                SwitchListTile(
-                  value: _acceptTerms,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _acceptTerms = value;
-                    });
-                  },
-                  title: Text('Accept Terms'),
-                ),
+                _buildPasswordTextField(),
+                _buildSwitchTite(),
                 SizedBox(height: 10.0),
                 RaisedButton(
                   child: Text('Sign In'),
                   color: Theme.of(context).accentColor,
                   textColor: Colors.white,
-                  onPressed: () {
-                    if (_checkLogin(context)) {
-                      _showWarningDialog(context,
-                          "Yo! $_usernameValue, your password is $_passwordValue");
-                    } else {
-                      _showWarningDialog(
-                          context, "You must enter your username and password");
-                    }
-                  },
+                  onPressed: _submitForm,
                 )
               ],
             ),
